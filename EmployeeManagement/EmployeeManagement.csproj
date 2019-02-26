@@ -10,4 +10,25 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css" />
+    <Folder Include="wwwroot\js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\inmages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="wwwroot\inmages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="wwwroot\inmages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\inmages\**" />
+  </ItemGroup>
+
 </Project>
