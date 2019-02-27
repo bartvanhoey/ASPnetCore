@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -25,21 +26,19 @@ namespace EmployeeManagement
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment()) app.UseDeveloperExceptionPage(new DeveloperExceptionPageOptions());
+            if (env.IsDevelopment())
+            {
+                var developerExceptionPageOptions = new DeveloperExceptionPageOptions {SourceCodeLineCount = 10};
+                app.UseDeveloperExceptionPage(developerExceptionPageOptions );
+            }
 
-//            var defaultFilesOptions = new DefaultFilesOptions();
-//            defaultFilesOptions.DefaultFileNames.Clear();
-//            defaultFilesOptions.DefaultFileNames.Add("foo.html");
-//            app.UseDefaultFiles(defaultFilesOptions);
-//            app.UseStaticFiles();
+            app.UseFileServer();
 
-            var fileServerOptions = new FileServerOptions();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
-            app.UseFileServer(fileServerOptions);
-
-
-            app.Run(async (context) => { await context.Response.WriteAsync("Hello World"); });
+            app.Run(async (context) =>
+            {
+                throw new Exception("Some error processing the request");
+                await context.Response.WriteAsync("Hello World");
+            });
         }
     }
 }
